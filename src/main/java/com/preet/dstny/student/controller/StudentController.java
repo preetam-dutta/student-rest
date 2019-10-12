@@ -1,10 +1,11 @@
-package com.preet.dstny.student;
+package com.preet.dstny.student.controller;
 
+import com.preet.dstny.student.data.Student;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Controller {
+public class StudentController {
 
   @RequestMapping("/student")
   public Student helloWorld() {

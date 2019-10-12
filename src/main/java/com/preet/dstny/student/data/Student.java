@@ -1,4 +1,4 @@
-package com.preet.dstny.student;
+package com.preet.dstny.student.data;
 
 public class Student {
   private final String name;
