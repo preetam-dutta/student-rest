@@ -1,6 +1,6 @@
 package com.preet.dstny.student.controller;
 
-import com.preet.dstny.student.data.Student;
+import com.preet.dstny.student.view.Student;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
