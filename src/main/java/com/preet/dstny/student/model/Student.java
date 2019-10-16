@@ -1,4 +1,4 @@
-package com.preet.dstny.student.view;
+package com.preet.dstny.student.model;
 
 public class Student {
   private final String name;
