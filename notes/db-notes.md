@@ -2,6 +2,17 @@
 Table Creation
 ==============
 
+student
+-------
+create table student (
+  id uuid,
+  name text,
+  phone double,
+  email text,
+  course text,
+  primary key(id)
+);
+
 student_by_course_and_email
 ---------------------------
 create table student_by_course_and_email (
@@ -9,6 +20,7 @@ create table student_by_course_and_email (
   email text,
   phone double,
   name text,
+  id uuid,
   primary key((course), email, phone, name)
 );
 
@@ -19,6 +31,7 @@ create table student_by_course_and_phone (
   phone double,
   email text,
   name text,
+  id uuid,
   primary key((course), phone, email, name)
 );
 
@@ -26,21 +39,28 @@ INSERT
 ======
 
 BEGIN BATCH
-    insert into student_by_course_and_email (course, email, phone, name) values ('CS', 'preet@test.com', 9988776655, 'Preetam Dutta');
-    insert into student_by_course_and_phone (course, phone, email, name) values ('CS', 9988776655, 'preet@test.com', 'Preetam Dutta');
+    insert into student_by_course_and_email (course, email, phone, name, id) values ('CS', 'preet@test.com', 9988776655, 'Preetam Dutta', 4a5907df-35a5-4f33-bd72-b2c6a6c897f2);
+    insert into student (course, email, phone, name, id) values ('CS', 'preet@test.com', 9988776655, 'Preetam Dutta', 4a5907df-35a5-4f33-bd72-b2c6a6c897f2);
+    insert into student_by_course_and_phone (course, phone, email, name, id) values ('CS', 9988776655, 'preet@test.com', 'Preetam Dutta', 4a5907df-35a5-4f33-bd72-b2c6a6c897f2);
 APPLY BATCH;
 
-BEGIN BATCH
-    insert into student_by_course_and_email (course, email, phone, name) values ('CS', 'vipin@test.com', 8877665544, 'Vipin Tondak');
-    insert into student_by_course_and_phone (course, phone, email, name) values ('CS', 8877665544, 'vipin@test.com', 'Vipin Tondak');
-APPLY BATCH;
 
-BEGIN BATCH
-    insert into student_by_course_and_email (course, email, phone, name) values ('NS', 'raj@test.com', 7766554433, 'Rajesh Sahay');
-    insert into student_by_course_and_phone (course, phone, email, name) values ('NS', 7766554433, 'raj@test.com', 'Rajesh Sahay');
-APPLY BATCH;
+Curl Commands
+=============
 
-BEGIN BATCH
-    insert into student_by_course_and_email (course, email, phone, name) values ('NS', 'amba@test.com', 6655443322, 'Amba Prasad');
-    insert into student_by_course_and_phone (course, phone, email, name) values ('NS', 6655443322, 'amba@test.com', 'Amba Prasad');
-APPLY BATCH;
+
+
+curl http://localhost:8080/student
+curl http://localhost:8080/student/course/CS
+curl http://localhost:8080/student/course/CS/email/rajesh@test.com
+curl http://localhost:8080/student/course/NS/phone/2277665500
+
+
+
+create records
+--------------
+curl -d '{"course":"CS", "email":"ashish@test.com", "phone":"2277665544", "name":"Ashish S"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
+curl -d '{"course":"NS", "email":"vipin@test.com", "phone":"2277665500", "name":"Vipin Tondak"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
+curl -d '{"course":"NS", "email":"amba@test.com", "phone":"2277665511", "name":"Amba Prasad"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
+curl -d '{"course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bandal"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
+curl -d '{"course":"CS", "email":"rajesh@test.com", "phone":"2277665532", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student

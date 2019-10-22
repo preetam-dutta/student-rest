@@ -1,34 +1,35 @@
 package com.preet.dstny.student.controller;
 
-import com.preet.dstny.student.db.StudentByCourseAndEmail;
-import com.preet.dstny.student.db.StudentByCourseAndEmailRepository;
-import com.preet.dstny.student.db.StudentByCourseAndPhoneRepository;
+import com.preet.dstny.student.db.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.cassandra.core.cql.ReactiveCqlTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
-
   private StudentByCourseAndEmailRepository studentByCourseAndEmailRepository;
   private StudentByCourseAndPhoneRepository studentByCourseAndPhoneRepository;
-  private ReactiveCqlTemplate reactiveCqlTemplate;
+  private WriteOperation writeOperation;
+  private StudentRepository studentRepository;
 
   @Autowired
   public StudentController(StudentByCourseAndEmailRepository studentByCourseAndEmailRepository,
                            StudentByCourseAndPhoneRepository studentByCourseAndPhoneRepository,
-                           ReactiveCqlTemplate reactiveCqlTemplate) {
-
+                           StudentRepository studentRepository,
+                           @Qualifier(value = "student") WriteOperation writeOperation) {
     this.studentByCourseAndEmailRepository = studentByCourseAndEmailRepository;
-    this.reactiveCqlTemplate = reactiveCqlTemplate;
+    this.studentRepository = studentRepository;
     this.studentByCourseAndPhoneRepository = studentByCourseAndPhoneRepository;
+    this.writeOperation = writeOperation;
   }
 
   @GetMapping("/count")
@@ -37,10 +38,16 @@ public class StudentController {
     return studentByCourseAndEmailRepository.count();
   }
 
-  @GetMapping("/")
+  @GetMapping("")
   @ResponseBody
-  public Flux<StudentByCourseAndEmail> getAllStudents() {
-    return studentByCourseAndEmailRepository.findAll();
+  public Flux<Student> getAllStudents() {
+    return studentRepository.findAll();
+  }
+
+  @GetMapping(value = "/id/{id}")
+  @ResponseBody
+  public Mono<Student> getStudentById(@PathVariable("id") UUID id) {
+    return studentRepository.findStudentById(id);
   }
 
   @GetMapping(value = "/course/{course}")
@@ -51,14 +58,19 @@ public class StudentController {
 
   @GetMapping(value = "/course/{course}/email/{email}")
   @ResponseBody
-  public Flux<StudentByCourseAndEmail> getStudentByCourseAndEmail(@PathVariable("course") String course, @PathVariable("email") String email) {
+  public Mono<StudentByCourseAndEmail> getStudentByCourseAndEmail(@PathVariable("course") String course, @PathVariable("email") String email) {
     return studentByCourseAndEmailRepository.findByCourseAndEmail(course, email);
   }
 
   @GetMapping(value = "/course/{course}/phone/{phone}")
   @ResponseBody
-  public Flux<StudentByCourseAndEmail> getStudentByCourseAndPhone(@PathVariable("course") String course, @PathVariable("phone") Double phone) {
+  public Mono<StudentByCourseAndEmail> getStudentByCourseAndPhone(@PathVariable("course") String course, @PathVariable("phone") Double phone) {
     return studentByCourseAndPhoneRepository.findByCourseAndPhone(course, phone);
   }
 
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public void createStudent(@RequestBody Student student) {
+    this.writeOperation.createStudent(student);
+  }
 }
