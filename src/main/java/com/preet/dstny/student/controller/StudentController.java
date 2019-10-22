@@ -77,4 +77,10 @@ public class StudentController {
   public void updateStudent(@RequestBody Student student) {
     this.writeOperation.updateStudent(student);
   }
+
+  @DeleteMapping(value = "/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void deleteStudent(@PathVariable UUID id) {
+    this.writeOperation.deleteStudent(id);
+  }
 }

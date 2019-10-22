@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-
 @Component(value = "student")
 public class StudentWriteOperation implements WriteOperation {
 
@@ -42,27 +41,7 @@ public class StudentWriteOperation implements WriteOperation {
 
   @Override
   public void updateStudent(Student student) {
-
-    if (student.getId() == null) {
-      LOGGER.warn("update not done, student.id missing in request");
-      return;
-    }
-
-    Select query = QueryBuilder.select()
-        .from("student")
-        .where(QueryBuilder.eq("id", student.getId())).allowFiltering();
-    Student existingStudent = cassandraTemplate.selectOne(query, Student.class);
-
-    if (existingStudent != null) {
-      //delete existing supporting tables
-      StudentByCourseAndPhone existingStudentByCourseAndPhone = new StudentByCourseAndPhone(existingStudent);
-      StudentByCourseAndEmail existingStudentByCourseAndEmail = new StudentByCourseAndEmail(existingStudent);
-      CassandraBatchOperations deleteOperation = cassandraTemplate.batchOps();
-      deleteOperation.delete(existingStudentByCourseAndPhone);
-      deleteOperation.delete(existingStudentByCourseAndEmail);
-      deleteOperation.execute();
-
-      //update student and create supporting tables
+    if (deleteStudent(student, true)) {
       StudentByCourseAndPhone newStudentByCourseAndPhone = new StudentByCourseAndPhone(student);
       StudentByCourseAndEmail newStudentByCourseAndEmail = new StudentByCourseAndEmail(student);
       CassandraBatchOperations batchOperations = cassandraTemplate.batchOps();
@@ -70,9 +49,40 @@ public class StudentWriteOperation implements WriteOperation {
       batchOperations.update(newStudentByCourseAndPhone);
       batchOperations.update(newStudentByCourseAndEmail);
       batchOperations.execute();
-      LOGGER.info("student[{}] updated", existingStudent.getId());
+      LOGGER.info("student[{}] updated", student.getId());
     } else {
       LOGGER.warn("update not done, student do not exist");
     }
+  }
+
+  @Override
+  public void deleteStudent(UUID id) {
+    Student student = new Student(id, null, null, null, null);
+    if (deleteStudent(student, false)) {
+      LOGGER.info("student[{}] deleted", student.getId());
+    } else {
+      LOGGER.warn("delete NOT done, student do not exist");
+    }
+  }
+
+  private boolean deleteStudent(Student student, boolean isBatchUpdateOperation) {
+    if (student.getId() == null) {
+      if (isBatchUpdateOperation) LOGGER.warn("update NOT done, student.id missing in request");
+      else LOGGER.warn("delete NOT done, student.id missing in request");
+      return false;
+    }
+
+    Select query = QueryBuilder.select().from("student").where(QueryBuilder.eq("id", student.getId())).allowFiltering();
+    Student existingStudent = cassandraTemplate.selectOne(query, Student.class);
+
+    if (existingStudent != null) {
+      CassandraBatchOperations deleteOperation = cassandraTemplate.batchOps();
+      if (!isBatchUpdateOperation) deleteOperation.delete(existingStudent);
+      deleteOperation.delete(new StudentByCourseAndPhone(existingStudent));
+      deleteOperation.delete(new StudentByCourseAndEmail(existingStudent));
+      deleteOperation.execute();
+      return true;
+    }
+    return false;
   }
 }

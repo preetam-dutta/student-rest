@@ -67,3 +67,8 @@ update records
 --------------
 curl -d '{"id":"2262aaf7-1b65-48a3-9db2-d27b622074b9", "course":"CS", "email":"rajesh@test.com", "phone":"2277665530", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
 curl -d '{"id":"7a9c4c59-04d8-497a-a385-283b403bd38e", "course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bansal"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
+
+
+delete record
+-------------
+curl -X DELETE http://localhost:8080/student/9ae88253-5a10-4f15-8e2c-0d79dca8e47e
