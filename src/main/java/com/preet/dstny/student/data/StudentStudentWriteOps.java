@@ -1,4 +1,4 @@
-package com.preet.dstny.student.db;
+package com.preet.dstny.student.data;
 
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.datastax.driver.core.querybuilder.Select;
@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component(value = "student")
-public class StudentWriteOperation implements WriteOperation {
+@Component(value = "student-write-ops")
+public class StudentStudentWriteOps implements StudentWriteOperations {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(StudentWriteOperation.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(StudentStudentWriteOps.class);
 
   private final CassandraTemplate cassandraTemplate;
 
   @Autowired
-  public StudentWriteOperation(CassandraTemplate cassandraTemplate) {
+  public StudentStudentWriteOps(CassandraTemplate cassandraTemplate) {
     this.cassandraTemplate = cassandraTemplate;
   }
 

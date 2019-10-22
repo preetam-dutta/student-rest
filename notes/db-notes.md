@@ -65,8 +65,8 @@ curl -d '{"course":"CS", "email":"rajesh@test.com", "phone":"2277665532", "name"
 
 update records
 --------------
-curl -d '{"id":"2262aaf7-1b65-48a3-9db2-d27b622074b9", "course":"CS", "email":"rajesh@test.com", "phone":"2277665530", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
-curl -d '{"id":"7a9c4c59-04d8-497a-a385-283b403bd38e", "course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bansal"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
+curl -d '{"id":"67919cf2-72cf-4c14-934b-a724096f1aee", "course":"CS", "email":"rajesh@test.com", "phone":"2277665530", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
+curl -d '{"id":"13eaee65-7e35-4a78-a975-30ed7fdd83ae", "course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bansal"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
 
 
 delete record

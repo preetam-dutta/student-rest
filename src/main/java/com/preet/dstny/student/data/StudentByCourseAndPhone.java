@@ -1,4 +1,4 @@
-package com.preet.dstny.student.db;
+package com.preet.dstny.student.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

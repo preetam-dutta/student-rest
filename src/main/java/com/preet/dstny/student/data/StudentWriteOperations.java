@@ -1,8 +1,8 @@
-package com.preet.dstny.student.db;
+package com.preet.dstny.student.data;
 
 import java.util.UUID;
 
-public interface WriteOperation {
+public interface StudentWriteOperations {
   void createStudent(Student student);
 
   void updateStudent(Student student);
