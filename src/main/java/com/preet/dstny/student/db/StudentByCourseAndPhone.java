@@ -28,4 +28,12 @@ public class StudentByCourseAndPhone {
   private String name;
 
   private UUID id;
+
+  public StudentByCourseAndPhone(Student student) {
+    this.course = student.getCourse();
+    this.email = student.getEmail();
+    this.phone = student.getPhone();
+    this.name = student.getName();
+    this.id = student.getId();
+  }
 }

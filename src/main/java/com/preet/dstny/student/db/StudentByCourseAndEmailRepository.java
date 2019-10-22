@@ -12,6 +12,9 @@ public interface StudentByCourseAndEmailRepository extends ReactiveCrudRepositor
   @Query("select * from student_by_course_and_email where course = ?0 and email = ?1")
   Mono<StudentByCourseAndEmail> findByCourseAndEmail(String course, String email);
 
+  @Query("select * from student_by_course_and_email where course = ?0 and email = ?1 and phone = ?2 and name = ?3")
+  Mono<StudentByCourseAndEmail> findByCourseEmailPhoneAndName(String course, String email, Double phone, String name);
+
   @Query("select * from student_by_course_and_email where course = ?0")
   Flux<StudentByCourseAndEmail> findByCourse(String course);
 

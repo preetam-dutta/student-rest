@@ -1,8 +1,6 @@
 package com.preet.dstny.student.controller;
 
 import com.preet.dstny.student.db.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -72,5 +70,11 @@ public class StudentController {
   @ResponseStatus(HttpStatus.CREATED)
   public void createStudent(@RequestBody Student student) {
     this.writeOperation.createStudent(student);
+  }
+
+  @PutMapping
+  @ResponseStatus(HttpStatus.OK)
+  public void updateStudent(@RequestBody Student student) {
+    this.writeOperation.updateStudent(student);
   }
 }
