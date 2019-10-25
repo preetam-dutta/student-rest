@@ -32,9 +32,4 @@ dependencies {
     compile("org.springframework.data:spring-data-cassandra")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.projectreactor:reactor-test')
-    testCompile("org.cassandraunit:cassandra-unit-spring:2.1.9.2") {
-        exclude group: 'org.cassandraunit', module: 'cassandra-unit'
-    }
-    testCompile("org.cassandraunit:cassandra-unit-shaded:2.1.9.2")
-    testCompile("org.hectorclient:hector-core:2.0-0")
 }
