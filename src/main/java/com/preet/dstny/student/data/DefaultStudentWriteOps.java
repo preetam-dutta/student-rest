@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component(value = "student-write-ops")
-public class StudentStudentWriteOps implements StudentWriteOperations {
+@Component
+public class DefaultStudentWriteOps implements StudentWriteOps {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(StudentStudentWriteOps.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultStudentWriteOps.class);
 
   private final CassandraTemplate cassandraTemplate;
 
   @Autowired
-  public StudentStudentWriteOps(CassandraTemplate cassandraTemplate) {
+  public DefaultStudentWriteOps(CassandraTemplate cassandraTemplate) {
     this.cassandraTemplate = cassandraTemplate;
   }
 

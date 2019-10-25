@@ -16,14 +16,14 @@ public class StudentController {
 
   private StudentByCourseAndEmailReadOps studentByCourseAndEmailReadOps;
   private StudentByCourseAndPhoneReadOps studentByCourseAndPhoneReadOps;
-  private StudentWriteOperations studentWriteOps;
+  private StudentWriteOps studentWriteOps;
   private StudentReadOps studentReadOps;
 
   @Autowired
   public StudentController(StudentByCourseAndEmailReadOps studentByCourseAndEmailReadOps,
                            StudentByCourseAndPhoneReadOps studentByCourseAndPhoneReadOps,
                            StudentReadOps studentReadOps,
-                           @Qualifier(value = "student-write-ops") StudentWriteOperations studentWriteOps) {
+                           StudentWriteOps studentWriteOps) {
     this.studentByCourseAndEmailReadOps = studentByCourseAndEmailReadOps;
     this.studentReadOps = studentReadOps;
     this.studentByCourseAndPhoneReadOps = studentByCourseAndPhoneReadOps;
