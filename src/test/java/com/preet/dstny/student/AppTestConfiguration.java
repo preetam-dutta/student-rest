@@ -19,13 +19,13 @@ public class AppTestConfiguration extends AbstractReactiveCassandraConfiguration
 
   @Override
   protected String getKeyspaceName() {
-    return CassandraTestContainer.getStudentKeyspace();
+    return TestUtil.getStudentKeyspace();
   }
 
   @Override
   protected int getPort() {
     try {
-      return CassandraTestContainer.getPort();
+      return TestUtil.getPort();
     } catch (CassandraContainerException e) {
       LOG.error("Cannot get CQL port of Cassandra container.", e);
     }
@@ -36,8 +36,8 @@ public class AppTestConfiguration extends AbstractReactiveCassandraConfiguration
   public CassandraClusterFactoryBean cluster() {
     try {
       CassandraClusterFactoryBean bean = super.cluster();
-      String cassandraIp = CassandraTestContainer.getCassandraContainerHost();
-      int cassandraPort = CassandraTestContainer.getPort();
+      String cassandraIp = TestUtil.getCassandraContainerHost();
+      int cassandraPort = TestUtil.getPort();
       bean.setJmxReportingEnabled(false);
       bean.setContactPoints(cassandraIp);
       bean.setPort(cassandraPort);

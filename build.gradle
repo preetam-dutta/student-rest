@@ -1,10 +1,10 @@
 buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
-    }
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+  }
 }
 apply plugin: 'java'
 apply plugin: 'idea'
@@ -15,24 +15,31 @@ group 'com.preet.dstny'
 version '1.0-SNAPSHOT'
 
 bootJar {
-    baseName("student-rest-service")
+  baseName("student-rest-service")
 }
 
 repositories {
-    jcenter()
+  jcenter()
 }
 
 sourceCompatibility = '1.11'
 targetCompatibility = '1.11'
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-webflux")
-    compileOnly 'org.projectlombok:lombok:1.18.10'
-    annotationProcessor 'org.projectlombok:lombok:1.18.10'
-    compile("org.springframework.data:spring-data-cassandra")
-    testImplementation ('org.projectlombok:lombok:1.18.10')
-    testCompile('org.testcontainers:testcontainers:1.12.2')
-    testCompile('org.testcontainers:cassandra:1.12.2')
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('io.projectreactor:reactor-test')
+  compileOnly('org.projectlombok:lombok:1.18.10')
+  annotationProcessor('org.projectlombok:lombok:1.18.10')
+  implementation('org.springframework.boot:spring-boot-starter-webflux')
+  implementation('org.springframework.data:spring-data-cassandra')
+  testImplementation('org.projectlombok:lombok:1.18.10')
+  testImplementation('org.testcontainers:testcontainers:1.12.2')
+  testImplementation('org.testcontainers:cassandra:1.12.2')
+  testImplementation('org.springframework.boot:spring-boot-starter-test')
+  testImplementation('io.projectreactor:reactor-test')
+}
+
+test {
+  // all tests will be executed via TestSuite.class
+  // excluding duplication individual test execution,
+  // comment this to run individual tests.
+  exclude('com/preet/dstny/student/data/**')
 }
