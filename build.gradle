@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
   repositories {
     jcenter()
@@ -15,7 +17,7 @@ group 'com.preet.dstny'
 version '1.0-SNAPSHOT'
 
 bootJar {
-  baseName("student-rest-service")
+  baseName(project.name)
 }
 
 repositories {
@@ -43,3 +45,31 @@ test {
   // comment this to run individual tests.
   exclude('com/preet/dstny/student/data/**')
 }
+
+ext.buildDockerImage = { ->
+  if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+    exec {
+      commandLine 'docker/build-image.bat', project.version
+    }
+  } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+    exec {
+      commandLine 'docker/build-image.sh', project.version
+    }
+  }
+}
+
+task dockerImage(type: Copy) {
+  description = 'copies the Dockerfile and other files required for building the docker image to build location'
+  group = 'build'
+  def jarName = project.name + "-" + project.version + ".jar"
+  from "$buildDir/libs/$jarName",
+      "docker/Dockerfile"
+  into "$buildDir/docker/"
+  rename "$jarName", "$project.name" + ".jar"
+
+  doLast {
+    buildDockerImage()
+  }
+}
+
+check.finalizedBy(dockerImage)
