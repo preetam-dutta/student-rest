@@ -25,6 +25,8 @@ dockerBuild() {
   banner "docker image build"
   docker build -t student-rest:$1 .
   statusCheck $? "docker build failed"
+  docker build -t student-rest:latest .
+  statusCheck $? "docker build failed"
 }
 
 

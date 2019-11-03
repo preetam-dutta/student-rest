@@ -1,0 +1,16 @@
+logging:
+  level:
+    org.springframework: ERROR
+    com.preet: DEBUG
+
+spring:
+  profiles:
+    active: dev
+  main:
+    banner-mode: 'off'
+
+cassandra:
+  keyspace: student
+  clusterPort: 9042
+  serviceContactPoint: cassandra
+  connectTimeoutInSeconds: 2
