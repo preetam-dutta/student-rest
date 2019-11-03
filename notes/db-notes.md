@@ -2,6 +2,14 @@
 Table Creation
 ==============
 
+keyspace
+--------
+
+CREATE  KEYSPACE student 
+   WITH REPLICATION = { 
+      'class' : 'SimpleStrategy', 'replication_factor' : 1 } 
+   
+
 student
 -------
 create table student (
@@ -39,7 +47,7 @@ INSERT
 ======
 
 BEGIN BATCH
-    insert into student_by_course_and_email (course, email, phone, name, id) values ('CS', 'preet@test.com', 9988776655, 'Preetam Dutta', 4a5907df-35a5-4f33-bd72-b2c6a6c897f2);
+    insert into student_by_course_and_email (course, email, phone, name, id) values ('CS', 'josh@test.com', 9988776655, 'Preetam Dutta', 4a5907df-35a5-4f33-bd72-b2c6a6c897f2);
     insert into student (course, email, phone, name, id) values ('CS', 'preet@test.com', 9988776655, 'Preetam Dutta', 4a5907df-35a5-4f33-bd72-b2c6a6c897f2);
     insert into student_by_course_and_phone (course, phone, email, name, id) values ('CS', 9988776655, 'preet@test.com', 'Preetam Dutta', 4a5907df-35a5-4f33-bd72-b2c6a6c897f2);
 APPLY BATCH;
