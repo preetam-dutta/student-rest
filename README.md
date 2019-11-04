@@ -52,4 +52,4 @@ Execute project
 
 Dev notes
 =========
-- Please refer to notes/quick-notes.md for developer quick notes
+- Please refer to [notes/quick-notes.md](./notes/quick-notes.md) for developer quick notes

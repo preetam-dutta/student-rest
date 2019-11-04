@@ -89,18 +89,18 @@ HTTP GET (read data)
 HTTP POST (create data)
 --------------------------
   ```bash
-    curl -d '{"course":"CS", "email":"ashish@test.com", "phone":"2277665544", "name":"Ashish S"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
-    curl -d '{"course":"NS", "email":"vipin@test.com", "phone":"2277665500", "name":"Vipin Tondak"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
-    curl -d '{"course":"NS", "email":"amba@test.com", "phone":"2277665511", "name":"Amba Prasad"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
-    curl -d '{"course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bandal"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
-    curl -d '{"course":"CS", "email":"rajesh@test.com", "phone":"2277665532", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X POST http://localhost:8080/student
+    curl -d '{"course":"CS", "email":"ashish@test.com", "phone":"2277665544", "name":"Ashish S"}' -H "Content-Type: application/json" -X POST http://<host>:8080/student
+    curl -d '{"course":"NS", "email":"vipin@test.com", "phone":"2277665500", "name":"Vipin Tondak"}' -H "Content-Type: application/json" -X POST http://<host>:8080/student
+    curl -d '{"course":"NS", "email":"amba@test.com", "phone":"2277665511", "name":"Amba Prasad"}' -H "Content-Type: application/json" -X POST http://<host>:8080/student
+    curl -d '{"course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bandal"}' -H "Content-Type: application/json" -X POST http://<host>:8080/student
+    curl -d '{"course":"CS", "email":"rajesh@test.com", "phone":"2277665532", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X POST http://<host>:8080/student
   ```
 
 HTTP PUT (update data)
 ----------------------
   ```bash
-    curl -d '{"id":"67919cf2-72cf-4c14-934b-a724096f1aee", "course":"CS", "email":"rajesh@test.com", "phone":"2277665530", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
-    curl -d '{"id":"13eaee65-7e35-4a78-a975-30ed7fdd83ae", "course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bansal"}' -H "Content-Type: application/json" -X PUT http://localhost:8080/student
+    curl -d '{"id":"67919cf2-72cf-4c14-934b-a724096f1aee", "course":"CS", "email":"rajesh@test.com", "phone":"2277665530", "name":"Rajesh Sahay"}' -H "Content-Type: application/json" -X PUT http://<host>:8080/student
+    curl -d '{"id":"13eaee65-7e35-4a78-a975-30ed7fdd83ae", "course":"NS", "email":"anuraag@test.com", "phone":"2277665599", "name":"Anuraag Bansal"}' -H "Content-Type: application/json" -X PUT http://<host>:8080/student
     
   ```
 
@@ -108,7 +108,7 @@ HTTP PUT (update data)
 HTTP DELETE (delete data)
 -------------------------
   ```bash
-    curl -X DELETE http://localhost:8080/student/9ae88253-5a10-4f15-8e2c-0d79dca8e47e
+    curl -X DELETE http://<host>:8080/student/9ae88253-5a10-4f15-8e2c-0d79dca8e47e
   ```
 
 
