@@ -7,8 +7,8 @@ RUN addgroup --system --gid 500 appgroup \
   && apt-get install openjdk-11-jdk -y
 
 WORKDIR /usr/local/bin/
-COPY student-rest.jar /usr/local/bin/
-RUN chmod 755 student-rest.jar
+COPY student-rest.jar liveness.sh /usr/local/bin/
+RUN chmod 755 student-rest.jar liveness.sh
 
 USER appuser:appgroup
 WORKDIR /home/appuser

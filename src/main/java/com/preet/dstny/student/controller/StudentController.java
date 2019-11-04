@@ -4,6 +4,7 @@ import com.preet.dstny.student.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,6 +35,16 @@ public class StudentController {
   @ResponseBody
   public Mono<Long> studentCount() {
     return studentByCourseAndEmailReadOps.count();
+  }
+
+  @GetMapping("/readiness")
+  @ResponseBody
+  public ResponseEntity<Mono<String>> studentServiceReady() {
+    Mono<String> body = Mono.empty();
+    return ResponseEntity
+        .ok()
+        .header("IsReady","Yes")
+        .body(body);
   }
 
   @GetMapping("")

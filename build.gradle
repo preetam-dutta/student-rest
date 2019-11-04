@@ -63,7 +63,8 @@ task dockerImage(type: Copy) {
   group = 'build'
   def jarName = project.name + "-" + project.version + ".jar"
   from "$buildDir/libs/$jarName",
-      "docker/Dockerfile"
+      "docker/Dockerfile",
+      "docker/liveness.sh"
   into "$buildDir/docker/"
   rename "$jarName", "$project.name" + ".jar"
 

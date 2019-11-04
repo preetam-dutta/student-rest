@@ -80,3 +80,16 @@ curl -d '{"id":"13eaee65-7e35-4a78-a975-30ed7fdd83ae", "course":"NS", "email":"a
 delete record
 -------------
 curl -X DELETE http://localhost:8080/student/9ae88253-5a10-4f15-8e2c-0d79dca8e47e
+
+cheat sheet commands
+--------------------
+kubectl delete rs student-rest
+kubectl delete service student-rest
+kubectl get all
+
+docker image ls | head -20
+docker image tag student-rest:latest preetamdutta/student-rest:latest
+docker image tag student-rest:latest preetamdutta/student-rest:latest
+docker image ls | head -20
+
+kubectl apply -f replica-set.yaml
