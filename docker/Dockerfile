@@ -12,4 +12,6 @@ RUN chmod 755 student-rest.jar liveness.sh
 
 USER appuser:appgroup
 WORKDIR /home/appuser
+# If you need to override default configuration, replace the below in the ENTRYPOINT
+# java -jar student-rest.jar --spring.config.location=classpath:/another-location.properties
 ENTRYPOINT java -jar /usr/local/bin/student-rest.jar
