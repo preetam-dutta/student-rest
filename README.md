@@ -22,6 +22,9 @@ Tech stack
 - Docker
 - Kubernetes
 
+Docker hub
+----------
+- Docker hub ref: https://cloud.docker.com/repository/docker/preetamdutta/student-rest
 
 Usage
 =====
@@ -49,4 +52,4 @@ Execute project
 
 Dev notes
 =========
-- Please refer to quick-notes.md for developer quick notes
+- Please refer to notes/quick-notes.md for developer quick notes
